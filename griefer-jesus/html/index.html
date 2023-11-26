@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveM Griefer Jesus Music Player</title>
+</head>
+<body>
+    <script>
+        var audio;
+
+        window.addEventListener('message', function (event) {
+            var data = event.data;
+
+            if (data.transactionType == 'playSound') {
+                audio = new Audio(data.transactionFile);
+                audio.volume = 0.3;
+                audio.play();
+            } else if (data.transactionType == 'stopSound') {
+                if (audio) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
