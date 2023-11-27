@@ -10,3 +10,5 @@ I know this is stupid and useless, but still I thought it may be funny and relea
 Credits for the PED fully go to NotOfTheWorld, NotCrunchyTaco, NModds, SilkTeam for creating it and releasing it here: "https://www.gta5-mods.com/scripts/jesus-christ-mod", I just converted one of the PEDs to FivM so I can use it for this script...
 
 Thanks all ^^
+
+Link to cfx.re Forum post: https://forum.cfx.re/t/release-griefer-jesus-script/5188160
