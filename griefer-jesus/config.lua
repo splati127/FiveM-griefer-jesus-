@@ -9,7 +9,7 @@ Config.AlwaysAggressive = false  --when this is true jesus always instantly trie
 
 Config.UseESX = false  --set to true if using esx
 Config.UseCommands = true  --set true if you want the commands for admins to trigger/be griefer jesus
-Config.aggrMsgType = "news"  --how to show that jesus is aggressive ("news" or "scale")
+Config.aggrMsgType = "scale"  --how to show that jesus is aggressive ("news" or "scale")
 
 
 --Locales
