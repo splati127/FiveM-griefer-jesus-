@@ -13,6 +13,10 @@ server_scripts {
     'server.lua'
 }
 
+shared_scripts {
+    'config.lua'
+}
+
 files {
     'html/index.html',
     'html/griefer-jesus.mp3'
