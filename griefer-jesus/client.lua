@@ -31,12 +31,16 @@ AddEventHandler("griefer-jesus:awesomegod", function(original, player)
     maxDistance = 20.0
 
     if distance <= maxDistance then
+
+        TriggerEvent('melody_backgroundmusic:musicstatus', false, false)
+
         SendNUIMessage({
             transactionType = 'playSound',
             transactionFile = 'griefer-jesus.mp3'
         })
 
         SetTimeout(16000, function()
+            TriggerEvent('melody_backgroundmusic:musicstatus', true, false)
             SendNUIMessage({
                 transactionType = 'stopSound'
             })
@@ -47,6 +51,8 @@ end)
 RegisterNetEvent("griefer-jesus:letsgooo")
 AddEventHandler("griefer-jesus:letsgooo", function(aggressive, typemsg)
     TriggerServerEvent("griefer-jesus:playSoundForNearbyPlayers")
+
+    TriggerServerEvent('melody_legacy:giveaward', GetPlayerServerId(PlayerId()), "Griefer Jesus", "auto")
 
     local npcModel = Config.PEDModel
     local playerCoords = GetEntityCoords(GetPlayerPed(-1))
@@ -89,6 +95,12 @@ AddEventHandler("griefer-jesus:letsgrief", function(aggressive)
 
     if state then
         state = false
+        local vehicledel = GetVehiclePedIsIn(PlayerId(), false)
+        if DoesEntityExist(vehicledel) then
+            SetEntityAsMissionEntity(vehicledel, true, true)
+            SetEntityAsNoLongerNeeded(vehicledel)
+            DeleteVehicle(vehicledel)
+        end
         SetNotificationTextEntry("STRING")
         AddTextComponentString(Config.NotJesusText)
         DrawNotification(0, 0, 1, -1)
@@ -96,7 +108,6 @@ AddEventHandler("griefer-jesus:letsgrief", function(aggressive)
         if Config.UseESX then
             ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
                 local isMale = skin.sex == 0
-
 
                 TriggerEvent('skinchanger:loadDefaultModel', isMale, function()
                     ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
@@ -126,6 +137,24 @@ AddEventHandler("griefer-jesus:letsgrief", function(aggressive)
         SetPlayerModel(PlayerId(), model)
         GiveWeaponToPed(GetPlayerPed(-1), GetHashKey("WEAPON_RAILGUN"), 1000, true, true)
         SetEntityInvincible(GetPlayerPed(-1), true)
+
+
+        local vehiclemodel = "oppressor2"
+        RequestModel(vehiclemodel)
+        while not HasModelLoaded(vehiclemodel) do
+            Wait(500)
+        end
+        local playercoords = GetEntityCoords(GetPlayerPed(-1))
+        local playerheading = GetEntityHeading(GetPlayerPed(-1))
+        local vehicle = CreateVehicle(vehiclemodel, playercoords.x, playercoords.y, playercoords.z, playerheading, true, false)
+        TaskWarpPedIntoVehicle(GetPlayerPed(-1), vehicle, -1)
+        SetVehicleNumberPlateText(vehicle, "JESUS")
+        SetVehicleNumberPlateTextIndex(vehicle, 5)
+        SetVehicleFuelLevel(vehicle, 100)
+        SetVehicleDirtLevel(vehicle, 0)
+        SetEntityInvincible(vehicle, true)
+
+        SetVehicleMod(vehicle, 48, 6, false)
     end
 end)
 
